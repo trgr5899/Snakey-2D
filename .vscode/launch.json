@@ -6,17 +6,17 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Launch App",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "App",
+            "vmArgs": "--module-path /Users/curts/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "projectName": "Snakey-2D_a540fe8e"
         },
         {
             "type": "java",
-            "name": "Launch App",
+            "name": "Launch Current File",
             "request": "launch",
-            "vmArgs": "--module-path /Users/curts/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
-            "mainClass": "App",
-            "projectName": "demo2_7811c7cb"
+            "mainClass": "${file}"
         }
     ]
 }
