@@ -12,6 +12,9 @@ Our team consists of Trevor Green, Amanda Smith, and Connor Tribbett. For our se
 
 **Datastore:** Files
 
+### Setting up JavaFX on VScode ###
+https://www.youtube.com/watch?v=H67COH9F718
+
 ### Project Requirements: ###
 Functional Requirements:
  * Login Screen
