@@ -349,3 +349,108 @@ class LoginMenu implements Menu {
     }
 }
 
+class GameOverMenu implements Menu{
+    Stage primStage = new Stage();
+    public Stage showMenu(Stage primaryStage)
+    {
+
+        // set title for the stage
+        DropShadow ds = new DropShadow();
+
+        //grabbed from https://www.tutorialspoint.com/javafx/javafx_text.htm
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        Text t = new Text();
+        t.setEffect(ds);
+        t.setCache(true);
+        t.setX(10.0f);
+        t.setY(270.0f);
+        t.setFill(Color.BLACK);
+        t.setText("GAME OVER");
+        t.setFont(Font.font(null, FontWeight.BOLD, 32));
+
+        //set Play again button
+        Button bAgain = new Button("Play Again");
+        bAgain.setDefaultButton(true);
+        bAgain.setStyle("-fx-background-color: #00ff00; ");
+        bAgain.setMinHeight(50);
+        bAgain.setMinWidth(400);
+
+        // set leaderboard button
+        Button bLeaderboard = new Button("View Leaderboard");
+        bLeaderboard.setDefaultButton(true);
+        bLeaderboard.setStyle("-fx-background-color: #00ffd7; ");
+        bLeaderboard.setMinHeight(50);
+        bLeaderboard.setMinWidth(400);
+
+        // set main menu button
+        Button bMain = new Button("Main Menu");
+        bMain.setDefaultButton(true);
+        bMain.setStyle("-fx-background-color: #0072f4; ");
+        bMain.setMinHeight(50);
+        bMain.setMinWidth(400);
+
+        // set logout button
+        Button bLogout = new Button("Logout");
+        bLogout.setDefaultButton(true);
+        bLogout.setStyle("-fx-background-color: #a2a2a2; ");
+
+        // set vertical box for buttons
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        // when button is pressed
+        // action event
+        EventHandler<ActionEvent> eventAgain = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                
+            }
+        };
+
+        EventHandler<ActionEvent> eventLeaderboard = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+
+            }
+        };
+        EventHandler<ActionEvent> eventMain = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+
+            }
+        };
+        EventHandler<ActionEvent> eventLogout = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                LoginMenu logMenu = new LoginMenu();
+                primStage = logMenu.showMenu(primaryStage);
+            }
+        };
+
+        //set the actions
+        bAgain.setOnAction(eventAgain);
+        bLeaderboard.setOnAction(eventLeaderboard);
+        bMain.setOnAction(eventMain);
+        bLogout.setOnAction(eventLogout);
+
+        // add button
+        vbox.getChildren().add(t);
+        vbox.getChildren().add(bAgain);
+        vbox.getChildren().add(bLeaderboard);
+        vbox.getChildren().add(bMain);
+        vbox.getChildren().add(bLogout);
+
+        // create a scene
+        Scene sc = new Scene(vbox, 500, 500);
+        // set the scene
+        primaryStage.setScene(sc);
+
+        primaryStage.show();
+
+        return primaryStage;
+    }
+
+}
+
