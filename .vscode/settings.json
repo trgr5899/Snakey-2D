@@ -3,15 +3,15 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.base.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.controls.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.fxml.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.graphics.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.media.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.swing.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx.web.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\javafx-swt.jar",
-        "c:\\Program Files\\Eclipse Adoptium\\jdk-17.0.2.8-hotspot\\lib\\jrt-fs.jar"
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.base.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.controls.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.fxml.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.graphics.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.media.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.swing.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx.web.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/javafx-swt.jar",
+        "/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home/lib/jrt-fs.jar"
         
     ]
 }
