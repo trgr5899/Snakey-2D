@@ -1,4 +1,5 @@
 // package snakey.example.snakey2d;
+//package ooadfinal.snakey2d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,17 @@ public class App extends Application {
 
 
 	public void start(Stage primaryStage) {
+		// Setup debuglogger and register it on gameDB
+		GameDB db = GameDB.get_instance();
+		DebugLogger logger = DebugLogger.getLogger();
+
+		logger.openLogger("log.txt");
+		db.registerObserver(logger);
+
+		// Setup DB
+		db.setDBPath("jdbc:sqlite:snake.db");
+		db.setupDB();
+
 		try {
 
 			primaryStage.setTitle("Snakey - 2D");

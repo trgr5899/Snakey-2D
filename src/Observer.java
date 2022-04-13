@@ -1,4 +1,4 @@
-// package ooadfinal.snakey2d;
+//package ooadfinal.snakey2d;
 
 import java.util.ArrayList;
 import java.time.Instant;
@@ -8,7 +8,6 @@ import java.io.IOException;
 
 enum MessageID {
     ERR_DB_CONN, ERR_DB_CLOSE, ERR_DB_CREATE_TABLE, ERR_DB_INS_USER, ERR_DB_SEL_USER,
-
     ERR_DB_INS_SCORE, ERR_DB_SEL_SCORE
 }
 
@@ -139,7 +138,7 @@ class DebugLogger implements Observer {
                 // Print to STDOUT it specified
                 if(logSTDOUT){
                     System.out.println(line);
-                }else if(logFile != null){
+                }else{
                     logFile.write(line + "\n");
                 }
             }catch (IOException e){

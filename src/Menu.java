@@ -1,4 +1,5 @@
 // package snakey.example.snakey2d;
+//package ooadfinal.snakey2d;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -197,6 +198,8 @@ class RegisterMenu implements Menu {
         EventHandler<ActionEvent> eventSubmit = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
+                GameDB db = GameDB.get_instance();
+
                 String user = username.getText();
                 String pass = password.getText();
                 String pass2 = password2.getText();
@@ -211,6 +214,10 @@ class RegisterMenu implements Menu {
                     vbox.getChildren().add(passMatch);
                 }
                 else {
+                    db.writeUser(user, pass);
+                    Integer userID = db.checkUser(user, pass);
+
+                    // TODO: CREATE PLAYER CLASS HERE AND ASSIGN USER + USERID. PASS TO MAIN MENU SOMEHOW (OR APP?).
                     MainMenu main_menu = new MainMenu();
                     primStage = main_menu.showMenu(primaryStage);
                 }
@@ -289,6 +296,8 @@ class LoginMenu implements Menu {
         EventHandler<ActionEvent> eventLogin = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
+                GameDB db = GameDB.get_instance();
+
                 String user = username.getText();
                 String pass = password.getText();
                 if (user.isEmpty() || pass.isEmpty()) {
@@ -296,14 +305,16 @@ class LoginMenu implements Menu {
                     noInput.setText("Please fill out all fields");
                     vbox.getChildren().add(noInput);
                 }
-                else if (true) {
-                    MainMenu main_menu = new MainMenu();
-                    primStage = main_menu.showMenu(primaryStage);
-                }
-                else {
+                Integer userID = db.checkUser(user, pass);
+
+                if(userID == null){
                     Text incorrect = new Text();
                     incorrect.setText("Incorrect login");
                     vbox.getChildren().add(incorrect);
+                }else{
+                    // TODO: CREATE PLAYER CLASS HERE AND ASSIGN USER + USERID. PASS TO MAIN MENU SOMEHOW (OR APP?).
+                    MainMenu main_menu = new MainMenu();
+                    primStage = main_menu.showMenu(primaryStage);
                 }
             }
         };

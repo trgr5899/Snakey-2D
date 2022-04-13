@@ -1,4 +1,4 @@
-// package ooadfinal.snakey2d;
+//package ooadfinal.snakey2d;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,18 +13,18 @@ public class GameDB implements Subject{
     private Connection dbConn = null;
 
     // Static SQL Queries
-    private static final String create_table_users =     "CREATE TABLE users (UserID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
+    private static final String create_table_users =     "CREATE TABLE IF NOT EXISTS users (UserID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
                                                    "username TEXT NOT NULL UNIQUE, " +
                                                    "password TEXT NOT NULL)";
-    private static final String create_table_NM_scores = "CREATE TABLE nmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
+    private static final String create_table_NM_scores = "CREATE TABLE IF NOT EXISTS nmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
                                                     "UserID INTEGER NOT NULL, " +
                                                     "username TEXT NOT NULL, " +
                                                     "Score INTEGER NOT NULL)";
-    private static final String create_table_CM_scores = "CREATE TABLE cmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
+    private static final String create_table_CM_scores = "CREATE TABLE IF NOT EXISTS cmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
                                                     "UserID INTEGER NOT NULL, " +
                                                     "username TEXT NOT NULL, " +
                                                     "Score INTEGER NOT NULL)";
-    private static final String create_table_MM_scores = "CREATE TABLE mmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
+    private static final String create_table_MM_scores = "CREATE TABLE IF NOT EXISTS mmscores (ScoreID INTEGER PRIMARY KEY NOT NULL UNIQUE, " +
                                                     "UserID INTEGER NOT NULL, " +
                                                     "username TEXT NOT NULL, " +
                                                     "Score INTEGER NOT NULL)";
