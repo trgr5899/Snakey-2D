@@ -27,7 +27,7 @@ public class Grid {
     int sizeFrame;
     int height;
     List<List<Node>> nodes = new ArrayList<List<Node>>();
-
+    Snake snake = new Snake();
     Grid(int sizeF, int NodesPerRow)
     {
         sizeFrame = sizeF;
@@ -38,27 +38,37 @@ public class Grid {
 
     public void createGrid() {
 
-        //colors = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED};
-
-        Boolean snake = false;
+        ArrayList<Node> snakeBody = new ArrayList<Node>();
+        Boolean snakeBool = false;
         Boolean wall;
         for (int row = 0; row < numRows; row++) {
             List<Node> tempList = new ArrayList<Node>(); 
             for (int col = 0; col < numCols; col++) {
                 if(row == 0 || row == numRows-1 || col == 0 || col == numCols-1)
                 {
+                    snakeBool = false;
                     wall = true;
-                    Node node = new Node(Color.RED, row, col, height, snake, wall);
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
                     tempList.add(node);
+                }
+                else if((row == 26 && col == 26) || (row == 26 && col == 27) || (row == 26 && col == 28) || (row == 26 && col == 29))
+                {
+                    snakeBool = true;
+                    wall = true;
+                    Node node = new Node(Color.WHITE, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                    snakeBody.add(node);
                 }
                 else
                 {
+                    snakeBool = false;
                     wall = false;
-                    Node node = new Node(Color.BLACK, row, col, height, snake, wall);
+                    Node node = new Node(Color.BLACK, row, col, height, snakeBool, wall);
                     tempList.add(node);
                 }
             }
             nodes.add(tempList);
+            snake.createSnake(snakeBody);
         }
     }
 
