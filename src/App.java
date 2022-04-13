@@ -8,16 +8,19 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class App extends Application {
 	// variable
+	MainMenu main_menu = new MainMenu();
 	static int speed = 5;
 	static int foodcolor = 0;
 	static int width = 20;
@@ -47,59 +50,63 @@ public class App extends Application {
 
 	public void start(Stage primaryStage) {
 		try {
-			newFood();
+			
+			primaryStage.setTitle("Snakey - 2D");
+			primaryStage = main_menu.showMenu(primaryStage);
 
-			VBox root = new VBox();
-			Canvas c = new Canvas(width * cornersize, height * cornersize);
-			GraphicsContext gc = c.getGraphicsContext2D();
-			root.getChildren().add(c);
+			// newFood();
 
-			new AnimationTimer() {
-				long lastTick = 0;
+			// VBox root = new VBox();
+			// Canvas c = new Canvas(width * cornersize, height * cornersize);
+			// GraphicsContext gc = c.getGraphicsContext2D();
+			// root.getChildren().add(c);
 
-				public void handle(long now) {
-					if (lastTick == 0) {
-						lastTick = now;
-						tick(gc);
-						return;
-					}
+			// new AnimationTimer() {
+			// 	long lastTick = 0;
 
-					if (now - lastTick > 1000000000 / speed) {
-						lastTick = now;
-						tick(gc);
-					}
-				}
+			// 	public void handle(long now) {
+			// 		if (lastTick == 0) {
+			// 			lastTick = now;
+			// 			tick(gc);
+			// 			return;
+			// 		}
 
-			}.start();
+			// 		if (now - lastTick > 1000000000 / speed) {
+			// 			lastTick = now;
+			// 			tick(gc);
+			// 		}
+			// 	}
 
-			Scene scene = new Scene(root, width * cornersize, height * cornersize);
+			// }.start();
 
-			// control
-			scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-				if (key.getCode() == KeyCode.W) {
-					direction = Dir.up;
-				}
-				if (key.getCode() == KeyCode.A) {
-					direction = Dir.left;
-				}
-				if (key.getCode() == KeyCode.S) {
-					direction = Dir.down;
-				}
-				if (key.getCode() == KeyCode.D) {
-					direction = Dir.right;
-				}
+			// Scene scene = new Scene(root, width * cornersize, height * cornersize);
 
-			});
+			// // control
+			// scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+			// 	if (key.getCode() == KeyCode.W) {
+			// 		direction = Dir.up;
+			// 	}
+			// 	if (key.getCode() == KeyCode.A) {
+			// 		direction = Dir.left;
+			// 	}
+			// 	if (key.getCode() == KeyCode.S) {
+			// 		direction = Dir.down;
+			// 	}
+			// 	if (key.getCode() == KeyCode.D) {
+			// 		direction = Dir.right;
+			// 	}
 
-			// add start snake parts
-			snake.add(new Corner(width / 2, height / 2));
-			snake.add(new Corner(width / 2, height / 2));
-			snake.add(new Corner(width / 2, height / 2));
-			//If you do not want to use css style, you can just delete the next line.
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("SNAKE GAME");
-			primaryStage.show();
+			// });
+
+			// // add start snake parts
+			// snake.add(new Corner(width / 2, height / 2));
+			// snake.add(new Corner(width / 2, height / 2));
+			// snake.add(new Corner(width / 2, height / 2));
+			// //If you do not want to use css style, you can just delete the next line.
+			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			// primaryStage.setScene(scene);
+			// primaryStage.setTitle("SNAKE GAME");
+			// primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
