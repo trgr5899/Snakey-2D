@@ -1,4 +1,4 @@
-
+// package snakey.example.snakey2d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,15 @@ import javafx.scene.text.Font;
 
 public class App extends Application {
 	// variable
-	MainMenu main_menu = new MainMenu();
+	LoginMenu logMenu = new LoginMenu();
 
 
 	public void start(Stage primaryStage) {
 		try {
-			
+
 			primaryStage.setTitle("Snakey - 2D");
-			primaryStage = main_menu.showMenu(primaryStage);
-			
+			primaryStage = logMenu.showMenu(primaryStage);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
