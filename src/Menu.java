@@ -81,7 +81,8 @@ class MainMenu implements Menu{
         EventHandler<ActionEvent> eventRegular = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                oldGame oldgame = new oldGame();
+                oldgame.start(primaryStage);
             }
         };
 
