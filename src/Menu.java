@@ -89,7 +89,9 @@ class MainMenu implements Menu{
         EventHandler<ActionEvent> eventChallenge = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                Grid grid = new Grid(500 , 50); //Passed in 500 size and 50 nodes
+                grid.createGrid();
+                grid.drawGrid(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventMultiplayer = new EventHandler<ActionEvent>() {
