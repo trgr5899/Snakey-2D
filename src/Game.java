@@ -182,7 +182,7 @@ class MultiPlayerGame implements Game{
     //Starts normal mode
     public void startNormalMode(Stage primaryStage)
     {
-        speedOfSnake = 5;
+        speedOfSnake = 8;
         //create and draw grid
         grid.createGridMulti();
         draw(primaryStage);
