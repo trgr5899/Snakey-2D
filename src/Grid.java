@@ -26,8 +26,12 @@ public class Grid {
     int numCols;
     int sizeFrame;
     int height;
+    Boolean gameOver = false;
     List<List<Node>> nodes = new ArrayList<List<Node>>();
     Snake snake = new Snake();
+    Snake snakeSecond = new Snake();
+
+
     Grid(int sizeF, int NodesPerRow)
     {
         sizeFrame = sizeF;
@@ -54,7 +58,7 @@ public class Grid {
                 else if((row == 26 && col == 26) || (row == 26 && col == 27) || (row == 26 && col == 28) || (row == 26 && col == 29))
                 {
                     snakeBool = true;
-                    wall = true;
+                    wall = false;
                     Node node = new Node(Color.WHITE, row, col, height, snakeBool, wall);
                     tempList.add(node);
                     snakeBody.add(node);
@@ -68,11 +72,128 @@ public class Grid {
                 }
             }
             nodes.add(tempList);
-            snake.createSnake(snakeBody);
+            snake.createSnake(snakeBody,Color.WHITE);
         }
     }
 
-    public void drawGrid(Stage primaryStage)
+    public void createGridChallenge() {
+
+        ArrayList<Node> snakeBody = new ArrayList<Node>();
+        Boolean snakeBool = false;
+        Boolean wall;
+        for (int row = 0; row < numRows; row++) {
+            List<Node> tempList = new ArrayList<Node>(); 
+            for (int col = 0; col < numCols; col++) {
+                if(row == 0 || row == numRows-1 || col == 0 || col == numCols-1)
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 10 && col == 15) || (row == 10 && col == 16) || (row == 10 && col == 17) || (row == 10 && col == 18)|| (row == 10 && col == 19)|| (row == 10 && col == 20))
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 11 && col == 17) || (row == 12 && col == 17) || (row == 13 && col == 17) || (row == 14 && col == 17)|| (row == 15 && col == 17)|| (row == 16 && col == 17))
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 36 && col == 40) || (row == 36 && col == 41) || (row == 36 && col == 42) || (row == 36 && col == 43)|| (row == 36 && col == 44)|| (row == 36 && col == 45))
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 28 && col == 10) || (row == 29 && col == 11) || (row == 30 && col == 12) || (row == 31 && col == 13)|| (row == 32 && col == 14)|| (row == 33 && col == 15))
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((col == 28 && row == 10) || (col == 29 && row == 11) || (col == 30 && row == 12) || (col == 31 && row == 13)|| (col == 32 && row == 14)|| (col == 33 && row == 15))
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 26 && col == 26) || (row == 26 && col == 27) || (row == 26 && col == 28) || (row == 26 && col == 29))
+                {
+                    snakeBool = true;
+                    wall = false;
+                    Node node = new Node(Color.WHITE, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                    snakeBody.add(node);
+                }
+                else
+                {
+                    snakeBool = false;
+                    wall = false;
+                    Node node = new Node(Color.BLACK, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+            }
+            nodes.add(tempList);
+            snake.createSnake(snakeBody,Color.WHITE);
+        }
+    }
+
+    public void createGridMulti() {
+
+        ArrayList<Node> snakeBody = new ArrayList<Node>();
+        ArrayList<Node> snakeBodySecond = new ArrayList<Node>();
+        Boolean snakeBool = false;
+        Boolean wall;
+        for (int row = 0; row < numRows; row++) {
+            List<Node> tempList = new ArrayList<Node>(); 
+            for (int col = 0; col < numCols; col++) {
+                if(row == 0 || row == numRows-1 || col == 0 || col == numCols-1)
+                {
+                    snakeBool = false;
+                    wall = true;
+                    Node node = new Node(Color.RED, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+                else if((row == 26 && col == 26) || (row == 26 && col == 27) || (row == 26 && col == 28) || (row == 26 && col == 29))
+                {
+                    snakeBool = true;
+                    wall = false;
+                    Node node = new Node(Color.WHITE, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                    snakeBody.add(node);
+                }
+                else if((row == 10 && col == 10) || (row == 11 && col == 10) || (row == 12 && col == 10) || (row == 13 && col == 10))
+                {
+                    snakeBool = true;
+                    wall = false;
+                    Node node = new Node(Color.GREEN, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                    snakeBodySecond.add(node);
+                }
+                else
+                {
+                    snakeBool = false;
+                    wall = false;
+                    Node node = new Node(Color.BLACK, row, col, height, snakeBool, wall);
+                    tempList.add(node);
+                }
+            }
+            nodes.add(tempList);
+            snake.createSnake(snakeBody,Color.WHITE);
+            snakeSecond.createSnake(snakeBodySecond,Color.GREEN);
+        }
+    }
+
+    public Scene drawGrid(Stage primaryStage)
     {
         GridPane grid = new GridPane();
         for(int i = 0; i < nodes.size(); i++)
@@ -90,9 +211,131 @@ public class Grid {
         }
     
         Scene scene = new Scene(grid, sizeFrame, sizeFrame);
-    
-        primaryStage.setTitle("Challenge Mode");
         primaryStage.setScene(scene);
         primaryStage.show();
+        return scene;
+    }
+    public Node getNextHeadNode(Direction dir)
+    {
+        Node head = snake.getSnakeHead();
+        int col = 0;
+        int row = 0;
+
+        //TODO: add edge cases
+        if(dir == Direction.left)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            col = col - 1; //move one column left
+        }
+        else if(dir == Direction.right)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            col = col + 1; //move one column right
+        }
+        else if(dir == Direction.up)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            row = row - 1; //move one row up
+        }
+        else //down
+        {
+            col = head.getCol();
+            row = head.getRow();
+            row = row + 1; //move one row down
+        }
+
+        return nodes.get(row).get(col);
+    }
+    public Node getNextHeadNodeSecondSnake(Direction dir)
+    {
+        Node head = snakeSecond.getSnakeHead();
+        int col = 0;
+        int row = 0;
+
+        //TODO: add edge cases
+        if(dir == Direction.left)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            col = col - 1; //move one column left
+        }
+        else if(dir == Direction.right)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            col = col + 1; //move one column right
+        }
+        else if(dir == Direction.up)
+        {
+            col = head.getCol();
+            row = head.getRow();
+            row = row - 1; //move one row up
+        }
+        else //down
+        {
+            col = head.getCol();
+            row = head.getRow();
+            row = row + 1; //move one row down
+        }
+
+        return nodes.get(row).get(col);
+    }
+
+    public void updateGrid(Direction dir)
+    {
+        //check for wall, snake node, empty node, food
+        Node newHead = getNextHeadNode(dir);
+        if (newHead.getIsWall() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit a wall");
+        }
+        else if(newHead.getIsSnake() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit the snake");
+        }
+        else
+        {
+            snake.updateHead(newHead);
+        }
+    }
+    public void updateGridMulti(Direction dir , Direction dirSecond)
+    {
+        //check for wall, snake node, empty node, food
+        Node newHead = getNextHeadNode(dir);
+        if (newHead.getIsWall() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit a wall");
+        }
+        else if(newHead.getIsSnake() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit the snake");
+        }
+        else
+        {
+            snake.updateHead(newHead);
+        }
+
+        Node newHeadSecond = getNextHeadNodeSecondSnake(dirSecond);
+        if (newHeadSecond.getIsWall() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit a wall");
+        }
+        else if(newHeadSecond.getIsSnake() == true)
+        {
+            gameOver = true;
+            System.out.println("Hit the snake");
+        }
+        else
+        {
+            snakeSecond.updateHead(newHeadSecond);
+        }
     }
 }

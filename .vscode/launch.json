@@ -9,7 +9,7 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
-            "vmArgs": "--module-path /Users/amanda/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /Users/curts/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "projectName": "Snakey-2D_95c4a643"
         },
         {
@@ -17,7 +17,7 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "App",
-            "vmArgs": "--module-path /Users/amanda/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /Users/curts/Downloads/javafx-sdk-17.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "projectName": "Snakey-2D_a540fe8e"
         },
         {

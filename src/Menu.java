@@ -88,23 +88,23 @@ class MainMenu implements Menu{
         EventHandler<ActionEvent> eventRegular = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                oldGame oldgame = new oldGame();
-                oldgame.start(primaryStage);
+                Game newG = new SinglePlayerGame();
+                newG.startNormalMode(primaryStage);
             }
         };
 
         EventHandler<ActionEvent> eventChallenge = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                Grid grid = new Grid(500 , 50); //Passed in 500 size and 50 nodes
-                grid.createGrid();
-                grid.drawGrid(primaryStage);
+                Game newG = new SinglePlayerGame();
+                newG.startChallengeMode(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventMultiplayer = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                Game newG = new MultiPlayerGame();
+                newG.startNormalMode(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventLeaderboard = new EventHandler<ActionEvent>() {
