@@ -21,7 +21,8 @@ import javafx.scene.text.Font;
 
 public class App extends Application {
 	// variable
-	LoginMenu logMenu = new LoginMenu();
+	//LoginMenu logMenu = new LoginMenu();
+	MainMenu mainM = new MainMenu();
 
 
 	public void start(Stage primaryStage) {
@@ -39,7 +40,8 @@ public class App extends Application {
 		try {
 
 			primaryStage.setTitle("Snakey - 2D");
-			primaryStage = logMenu.showMenu(primaryStage);
+			//primaryStage = logMenu.showMenu(primaryStage);
+			primaryStage = mainM.showMenu(primaryStage);
 
 		} catch (Exception e) {
 			e.printStackTrace();

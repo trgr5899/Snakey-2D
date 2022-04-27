@@ -17,6 +17,7 @@ public class Node {
         nodeRow = row;
         nodeCol = col;
         nodeIsSnake = snake;
+        nodeIsWall = wall;
         boundRectangle.setWidth(height);
         boundRectangle.setFill(nodeColor);
 
