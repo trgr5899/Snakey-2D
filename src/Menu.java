@@ -1,8 +1,10 @@
 // package snakey.example.snakey2d;
-//package ooadfinal.snakey2d;
+// package ooadfinal.snakey2d;
 
+import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
@@ -17,14 +19,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 
+import java.util.ArrayList;
+import javafx.geometry.Insets;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public interface Menu {
     public Stage showMenu(Stage primaryStage);
-    // void buildMenu();
-    // void handlebutton(int nuttonNum);
-    // void getText();
-
 }
+
 class MainMenu implements Menu{
     Stage primStage = new Stage();
     public Stage showMenu(Stage primaryStage)
@@ -88,29 +95,30 @@ class MainMenu implements Menu{
         EventHandler<ActionEvent> eventRegular = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                Game newG = new SinglePlayerGame();
-                newG.startNormalMode(primaryStage);
+                oldGame oldgame = new oldGame();
+                oldgame.start(primaryStage);
             }
         };
 
         EventHandler<ActionEvent> eventChallenge = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                Game newG = new SinglePlayerGame();
-                newG.startChallengeMode(primaryStage);
+                Grid grid = new Grid(500 , 50); //Passed in 500 size and 50 nodes
+                grid.createGrid();
+                grid.drawGrid(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventMultiplayer = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                Game newG = new MultiPlayerGame();
-                newG.startNormalMode(primaryStage);
+
             }
         };
         EventHandler<ActionEvent> eventLeaderboard = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                ChooseLeaderboardMenu clMenu = new ChooseLeaderboardMenu();
+                primStage = clMenu.showMenu(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventLogout = new EventHandler<ActionEvent>() {
@@ -213,7 +221,11 @@ class RegisterMenu implements Menu {
                     passMatch.setText("Passwords don't match");
                     vbox.getChildren().add(passMatch);
                 }
-                else {
+                else if(db.checkUser(user, pass) != null){
+                    Text userConflict = new Text();
+                    userConflict.setText("Account already exists with this username");
+                    vbox.getChildren().add(userConflict);
+                } else {
                     db.writeUser(user, pass);
                     Integer userID = db.checkUser(user, pass);
 
@@ -405,20 +417,22 @@ class GameOverMenu implements Menu{
         EventHandler<ActionEvent> eventAgain = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                
+
             }
         };
 
         EventHandler<ActionEvent> eventLeaderboard = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                LeaderboardMenu leaderboard_menu = new LeaderboardMenu();
+                primStage = leaderboard_menu.showMenu(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventMain = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-
+                MainMenu main_menu = new MainMenu();
+                primStage = main_menu.showMenu(primaryStage);
             }
         };
         EventHandler<ActionEvent> eventLogout = new EventHandler<ActionEvent>() {
@@ -454,3 +468,221 @@ class GameOverMenu implements Menu{
 
 }
 
+class LeaderboardMenu implements Menu{
+    Stage primStage = new Stage();
+
+    // What gamemode to display?
+    private Integer gameMode;
+
+    public void setGameMode(Integer gameMode){
+        this.gameMode = gameMode;
+    }
+
+    public Stage showMenu(Stage primaryStage)
+    {
+
+        DropShadow ds = new DropShadow();
+
+        //grabbed from https://www.tutorialspoint.com/javafx/javafx_text.htm
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        // Set text according to gamemode
+        Text t = new Text();
+        t.setEffect(ds);
+        t.setCache(true);
+        t.setX(10.0f);
+        t.setY(10.0f);
+        t.setFill(Color.BLACK);
+        if(gameMode == 0){
+            t.setText("Normal Mode Leaderboard");
+        }else if(gameMode == 1){
+            t.setText("Challenge Mode Leaderboard");
+        }else{
+            t.setText("Multiplayer Mode Leaderboard");
+        }
+        t.setFont(Font.font(null, FontWeight.BOLD, 32));
+
+
+        // Table Reference: https://docs.oracle.com/javafx/2/ui_controls/table-view.htm
+        TableView nm_table = new TableView();
+
+        nm_table.setEditable(false);
+
+        // Setup table columns with value factories from score class
+        TableColumn usernameCol = new TableColumn("Username");
+        TableColumn scoreCol = new TableColumn("Score");
+
+        usernameCol.setPrefWidth(239);
+        usernameCol.setMinWidth(150);
+        usernameCol.setCellValueFactory(new PropertyValueFactory<Score, String>("userName"));
+
+        scoreCol.setPrefWidth(239);
+        scoreCol.setMinWidth(150);
+        scoreCol.setCellValueFactory(new PropertyValueFactory<Score, Integer>("score"));
+
+        // Extract scores based on gamemode and put in table
+        GameDB db = GameDB.get_instance();
+        ArrayList<String> rawScores = db.getscores(gameMode);
+
+        ObservableList<Score> scores = FXCollections.observableArrayList();
+
+        // Convert raw string scores into ObservableList of score objects
+        for(int i = 0; i < rawScores.size(); i+=2){
+            scores.add(new Score(rawScores.get(i), Integer.parseInt(rawScores.get(i+1))));
+        }
+
+        nm_table.setItems(scores);
+
+        nm_table.getColumns().addAll(usernameCol, scoreCol);
+        nm_table.setMaxHeight(400);
+
+        // Button to return
+        Button bBack = new Button("Back");
+        bBack.setDefaultButton(true);
+        bBack.setStyle("-fx-background-color: #2890eb; ");
+        bBack.setMinHeight(50);
+        bBack.setMinWidth(200);
+
+        EventHandler<ActionEvent> eventBack = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                ChooseLeaderboardMenu clMenu = new ChooseLeaderboardMenu();
+                primStage = clMenu.showMenu(primaryStage);
+            }
+        };
+
+        bBack.setOnAction(eventBack);
+
+
+        // set vertical box for table
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(10, 10, 10, 10));
+
+        // add table
+        vbox.getChildren().addAll(t, nm_table, bBack);
+
+        // create a scene
+        Scene sc = new Scene(vbox, 500, 500);
+        // set the scene
+        primaryStage.setScene(sc);
+
+        primaryStage.show();
+
+        return primaryStage;
+    }
+}
+
+class ChooseLeaderboardMenu implements Menu{
+    Stage primStage = new Stage();
+
+    public Stage showMenu(Stage primaryStage)
+    {
+
+        // set title for the stage
+        DropShadow ds = new DropShadow();
+
+        //grabbed from https://www.tutorialspoint.com/javafx/javafx_text.htm
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        Text t = new Text();
+        t.setEffect(ds);
+        t.setCache(true);
+        t.setX(10.0f);
+        t.setY(270.0f);
+        t.setFill(Color.BLACK);
+        t.setText("Choose Leaderboard");
+        t.setFont(Font.font(null, FontWeight.BOLD, 32));
+
+        //set regular button
+        Button bRegular = new Button("Normal");
+        bRegular.setDefaultButton(true);
+        bRegular.setStyle("-fx-background-color: #2890eb; ");
+        bRegular.setMinHeight(50);
+        bRegular.setMinWidth(400);
+
+        // set challenge button
+        Button bChallenge = new Button("Challenge");
+        bChallenge.setDefaultButton(true);
+        bChallenge.setStyle("-fx-background-color: #2890eb; ");
+        bChallenge.setMinHeight(50);
+        bChallenge.setMinWidth(400);
+
+        // set Multiplayer button
+        Button bMultiplayer = new Button("Multiplayer");
+        bMultiplayer.setDefaultButton(true);
+        bMultiplayer.setStyle("-fx-background-color: #2890eb; ");
+        bMultiplayer.setMinHeight(50);
+        bMultiplayer.setMinWidth(400);
+
+        // set leaderboard button
+        Button bBack = new Button("Main Menu");
+        bBack.setDefaultButton(true);
+        bBack.setStyle("-fx-background-color: #2890eb; ");
+        bBack.setMinHeight(50);
+        bBack.setMinWidth(300);
+
+        // set vertical box for buttons
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        // when button is pressed
+        // action event
+        EventHandler<ActionEvent> eventRegular = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                LeaderboardMenu lMenu = new LeaderboardMenu();
+                lMenu.setGameMode(0);
+                primStage = lMenu.showMenu(primaryStage);
+            }
+        };
+
+        EventHandler<ActionEvent> eventChallenge = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                LeaderboardMenu lMenu = new LeaderboardMenu();
+                lMenu.setGameMode(1);
+                primStage = lMenu.showMenu(primaryStage);
+            }
+        };
+        EventHandler<ActionEvent> eventMultiplayer = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                LeaderboardMenu lMenu = new LeaderboardMenu();
+                lMenu.setGameMode(2);
+                primStage = lMenu.showMenu(primaryStage);
+            }
+        };
+        EventHandler<ActionEvent> eventMain = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                MainMenu mMenu = new MainMenu();
+                primStage = mMenu.showMenu(primaryStage);
+            }
+        };
+
+        //set the actions
+        bRegular.setOnAction(eventRegular);
+        bChallenge.setOnAction(eventChallenge);
+        bMultiplayer.setOnAction(eventMultiplayer);
+        bBack.setOnAction(eventMain);
+
+        // add button
+        vbox.getChildren().add(t);
+        vbox.getChildren().add(bRegular);
+        vbox.getChildren().add(bChallenge);
+        vbox.getChildren().add(bMultiplayer);
+        vbox.getChildren().add(bBack);
+
+        // create a scene
+        Scene sc = new Scene(vbox, 500, 500);
+        // set the scene
+        primaryStage.setScene(sc);
+
+        primaryStage.show();
+
+        return primaryStage;
+    }
+}
