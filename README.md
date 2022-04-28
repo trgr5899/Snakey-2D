@@ -1,7 +1,7 @@
 #  Snakey 2D #
 ## Trevor Green, Amanda Smith, Connor Tribbett ##
 
-### Demonstration: ### 
+### Video Demonstration: ### 
 https://youtu.be/V7n56NbeUQQ
 
 ### Project Summary: ###
