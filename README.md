@@ -6,11 +6,15 @@ Our team consists of Trevor Green, Amanda Smith, and Connor Tribbett. For our se
 
 ### Language/Frameworks: ###
 
-**Language:** Java
+**Language:** Java 17
 
-**Graphics Framework:** JavaFX
+**Required Libraries:** JavaFX 17.0.1, SQLite-JDBC 3.36.0.3
 
-**Datastore:** Files
+**Graphics Framework:** JavaFX 17.0.1
+
+**Datastore:** SQLite.
+
+**Running Project:** Must have JavaFX 17.0.1 and SQLite-JDBC 3.36.0.3 java libraries loaded. Program must be allowed to write files for database and logs. Start game by running main in app.java.
 
 ### Setting up JavaFX on VScode ###
 https://www.youtube.com/watch?v=H67COH9F718
