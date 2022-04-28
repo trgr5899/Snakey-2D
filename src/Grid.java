@@ -26,18 +26,23 @@ public class Grid {
     int numCols;
     int sizeFrame;
     int height;
+    int speed;
+    Boolean FoodEaten = false;
+    boolean SlowEaten = false;
+    boolean SpeedEaten = false;
     Boolean gameOver = false;
     List<List<Node>> nodes = new ArrayList<List<Node>>();
     Snake snake = new Snake();
     Snake snakeSecond = new Snake();
 
 
-    Grid(int sizeF, int NodesPerRow)
+    Grid(int sizeF, int NodesPerRow, int speedAdd)
     {
         sizeFrame = sizeF;
         numRows = NodesPerRow-1;
         numCols = NodesPerRow-1;
         height = sizeFrame/numRows;
+        speed = speedAdd;
     }
 
     public void createGrid() {
@@ -74,8 +79,24 @@ public class Grid {
             nodes.add(tempList);
             snake.createSnake(snakeBody,Color.WHITE);
         }
+        addFood();
     }
-
+    public Node getRandomNode()
+    {
+        Random ran = new Random();
+        int row = 0;
+        int col = 0;
+        while(true)
+        {
+            row = ran.nextInt(48) + 1 ;
+            col = ran.nextInt(48) + 1 ;
+            if((nodes.get(row).get(col).getIsWall() == false) && (nodes.get(row).get(col).getIsSnake() == false))
+            {
+                break;
+            }
+        }
+        return nodes.get(row).get(col);
+    }
     public void createGridChallenge() {
 
         ArrayList<Node> snakeBody = new ArrayList<Node>();
@@ -145,6 +166,9 @@ public class Grid {
             nodes.add(tempList);
             snake.createSnake(snakeBody,Color.WHITE);
         }
+        addFood();
+        addSlowDown();
+        addSpeedUp();
     }
 
     public void createGridMulti() {
@@ -191,10 +215,47 @@ public class Grid {
             snake.createSnake(snakeBody,Color.WHITE);
             snakeSecond.createSnake(snakeBodySecond,Color.GREEN);
         }
+        addFood();
+        addSlowDown();
+        addSpeedUp();
     }
-
+    public void addFood()
+    {
+        Node newN = getRandomNode();
+        newN.setColor(Color.AQUA);
+        newN.isPowerUp = true;
+        FoodEaten = false;
+    }
+    public void addSpeedUp()
+    {
+        Node newN = getRandomNode();
+        newN.setColor(Color.DARKGOLDENROD);
+        newN.isPowerUp = true;
+        SpeedEaten = false;
+    }
+    public void addSlowDown()
+    {
+        Node newN = getRandomNode();
+        newN.setColor(Color.VIOLET);
+        newN.isPowerUp = true;
+        SlowEaten = false;
+    }
     public Scene drawGrid(Stage primaryStage)
     {
+
+        if(FoodEaten)
+        {
+            addFood();
+        }
+        if(SpeedEaten)
+        {
+            addSpeedUp();
+        }
+        if(SlowEaten)
+        {
+            addSlowDown();
+        }
+
         GridPane grid = new GridPane();
         for(int i = 0; i < nodes.size(); i++)
         {
@@ -298,6 +359,32 @@ public class Grid {
             gameOver = true;
             System.out.println("Hit the snake");
         }
+        else if(newHead.getPowerUp() == true)
+        {
+            if(newHead.getColor() == Color.AQUA)
+            {
+                System.out.println("Got a food");
+                FoodEaten = true;
+                snake.addToSnake(newHead);
+            }
+            else if (newHead.getColor() == Color.DARKGOLDENROD)
+            {
+                System.out.println("Got a Speed");
+                SpeedEaten = true;
+                speed = speed + 2;
+                snake.updateHead(newHead);
+            }
+            else
+            {   
+                System.out.println("Got a slow");
+                SlowEaten = true;
+                if(speed > 2)
+                {
+                    speed = speed - 2; 
+                }
+                snake.updateHead(newHead);
+            }
+        }
         else
         {
             snake.updateHead(newHead);
@@ -317,6 +404,32 @@ public class Grid {
             gameOver = true;
             System.out.println("Hit the snake");
         }
+        else if(newHead.getPowerUp() == true)
+        {
+            if(newHead.getColor() == Color.AQUA)
+            {
+                System.out.println("Got a food");
+                FoodEaten = true;
+                snake.addToSnake(newHead);
+            }
+            else if (newHead.getColor() == Color.DARKGOLDENROD)
+            {
+                System.out.println("Got a Speed");
+                SpeedEaten = true;
+                speed = speed + 2;
+                snake.updateHead(newHead);
+            }
+            else
+            {   
+                System.out.println("Got a slow");
+                SlowEaten = true;
+                if(speed > 2)
+                {
+                    speed = speed - 2; 
+                }
+                snake.updateHead(newHead);
+            }
+        }
         else
         {
             snake.updateHead(newHead);
@@ -332,6 +445,33 @@ public class Grid {
         {
             gameOver = true;
             System.out.println("Hit the snake");
+        }
+        else if(newHeadSecond.getPowerUp() == true)
+        {
+            if(newHeadSecond.getColor() == Color.AQUA)
+            {
+                System.out.println("Got a food");
+                FoodEaten = true;
+
+                snakeSecond.addToSnake(newHeadSecond);
+            }
+            else if (newHeadSecond.getColor() == Color.DARKGOLDENROD)
+            {
+                System.out.println("Got a Speed");
+                SpeedEaten = true;
+                speed = speed + 2;
+                snakeSecond.updateHead(newHeadSecond);
+            }
+            else
+            {   
+                System.out.println("Got a slow");
+                SlowEaten = true;
+                if(speed > 2)
+                {
+                    speed = speed - 2; 
+                }
+                snakeSecond.updateHead(newHeadSecond);
+            }
         }
         else
         {

@@ -86,8 +86,13 @@ public class Snake {
 
     }
 
-    void addToSnake()
+    void addToSnake(Node node)
     {
+        //set color and type of new node
+        node.setIsSnake(true);
+        node.setColor(snakeColor);
+        node.isPowerUp = false;
+        snakeBodyStack.add(0, node);
 
     }
 

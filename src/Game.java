@@ -27,16 +27,15 @@ class SinglePlayerGame implements Game{
 
     //TODO: add a powerupset variable
     //TODO: add a Player variable
-    Grid grid = new Grid(500 , 50);
+    Grid grid = new Grid(500 , 50, 5);
     int snakeStartingRow;
     int snakeStartingCol;
-    int speedOfSnake;
+    int speedOfSnake = grid.speed;
     Direction snakeDir = Direction.left;
 
     //Starts normal mode
     public void startNormalMode(Stage primaryStage)
     {
-        speedOfSnake = 5;
         //create and draw grid
         grid.createGrid();
         draw(primaryStage);
@@ -152,7 +151,7 @@ class SinglePlayerGame implements Game{
     {
         //set the snake to faster speed
         speedOfSnake = 20;
-
+        grid.speed = 20;
         //create and draw grid
         grid.createGridChallenge();
         draw(primaryStage);
@@ -167,6 +166,7 @@ class SinglePlayerGame implements Game{
     public void update(Stage primaryStage)
     {
         grid.updateGrid(snakeDir);
+        speedOfSnake = grid.speed;
     }
 
 }
@@ -174,15 +174,14 @@ class MultiPlayerGame implements Game{
 
     //TODO: add a powerupset variable
     //TODO: add a Player variable
-    Grid grid = new Grid(500 , 50);
-    int speedOfSnake;
+    Grid grid = new Grid(500 , 50, 8);
+    int speedOfSnake= grid.speed;
     Direction snakeDir = Direction.left;
     Direction snakeDirSecond = Direction.right;
 
     //Starts normal mode
     public void startNormalMode(Stage primaryStage)
     {
-        speedOfSnake = 5;
         //create and draw grid
         grid.createGridMulti();
         draw(primaryStage);
@@ -329,6 +328,7 @@ class MultiPlayerGame implements Game{
     public void update(Stage primaryStage)
     {
         grid.updateGridMulti(snakeDir,snakeDirSecond);
+        speedOfSnake = grid.speed;
     }
 
     @Override

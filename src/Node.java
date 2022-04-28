@@ -10,6 +10,7 @@ public class Node {
     private int nodeCol;
     private boolean nodeIsSnake;
     private boolean nodeIsWall;
+    boolean isPowerUp;
 
     Node(Color color, int row, int col, int height, boolean snake, boolean wall)
     {
@@ -38,6 +39,14 @@ public class Node {
     public void setCol(int col)
     {
         nodeCol = col;
+    }
+    public boolean getPowerUp()
+    {
+        return isPowerUp;
+    }
+    public void setPowerUP(boolean bool)
+    {
+        isPowerUp = bool;
     }
     public boolean getIsSnake()
     {
