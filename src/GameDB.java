@@ -192,7 +192,7 @@ public class GameDB implements Subject{
 
             while(res.next()){
                 scores.add(res.getString("username"));
-                scores.add(String.valueOf(res.getInt("UserID")));
+                //scores.add(String.valueOf(res.getInt("UserID")));
                 scores.add(String.valueOf(res.getInt("Score")));
             }
 
